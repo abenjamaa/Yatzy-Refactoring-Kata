@@ -1,52 +1,46 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public class Yatzy {
 
     public static int chance(int d1, int d2, int d3, int d4, int d5)
     {
-        return new DiceRoll(d1, d2, d3, d4, d5).sum();
+        return new DiceFaces(d1, d2, d3, d4, d5).sum();
     }
 
     public static int yatzy(int... dice)
     {
-        return new DiceRoll(dice).isYatzy() ? 50 : 0;
+        return new DiceFaces(dice).isYatzy() ? 50 : 0;
     }
 
 
     public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(1);
+        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(1);
     }
 
     public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(2) * 2;
+        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(2) * 2;
     }
 
     public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(3) * 3;
+        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(3) * 3;
     }
 
     public Yatzy(){}
 
     public int fours(int d1, int d2, int d3, int d4, int d5)
     {
-        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(4) * 4;
+        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(4) * 4;
     }
 
     public int fives(int d1, int d2, int d3, int d4, int d5)
     {
-        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(5) * 5;
+        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(5) * 5;
     }
 
     public int sixes(int d1, int d2, int d3, int d4, int d5)
     {
-        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(6) * 6;
+        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(6) * 6;
     }
 
-    public static int score_pair(int d1, int d2, int d3, int d4, int d5)
+    public static int sumMaxPair(int d1, int d2, int d3, int d4, int d5)
     {
         int[] counts = new int[6];
         counts[d1-1]++;

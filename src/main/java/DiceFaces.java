@@ -2,16 +2,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class DiceRoll {
+public class DiceFaces {
 
         private final List<Integer> dice;
 
-    public DiceRoll(int d1, int d2, int d3, int d4, int d5) {
+    public DiceFaces(int d1, int d2, int d3, int d4, int d5) {
         this.dice = Arrays.asList(d1, d2, d3, d4, d5);
     }
-    public DiceRoll(int[] dice) {
+    public DiceFaces(int[] dice) {
         this.dice = Arrays.stream(dice).boxed().collect(Collectors.toList());
     }
 
