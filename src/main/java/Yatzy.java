@@ -1,100 +1,49 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class Yatzy {
 
     public static int chance(int d1, int d2, int d3, int d4, int d5)
     {
-        int total = 0;
-        total += d1;
-        total += d2;
-        total += d3;
-        total += d4;
-        total += d5;
-        return total;
+        return new DiceRoll(d1, d2, d3, d4, d5).sum();
     }
 
     public static int yatzy(int... dice)
     {
-        int[] counts = new int[6];
-        for (int die : dice)
-            counts[die-1]++;
-        for (int i = 0; i != 6; i++)
-            if (counts[i] == 5)
-                return 50;
-        return 0;
+        return new DiceRoll(dice).isYatzy() ? 50 : 0;
     }
 
-    public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        int sum = 0;
-        if (d1 == 1) sum++;
-        if (d2 == 1) sum++;
-        if (d3 == 1) sum++;
-        if (d4 == 1) sum++;
-        if (d5 == 1) 
-            sum++;
 
-        return sum;
+    public static int ones(int d1, int d2, int d3, int d4, int d5) {
+        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(1);
     }
 
     public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        int sum = 0;
-        if (d1 == 2) sum += 2;
-        if (d2 == 2) sum += 2;
-        if (d3 == 2) sum += 2;
-        if (d4 == 2) sum += 2;
-        if (d5 == 2) sum += 2;
-        return sum;
+        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(2) * 2;
     }
 
     public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        int s;    
-        s = 0;
-        if (d1 == 3) s += 3;
-        if (d2 == 3) s += 3;
-        if (d3 == 3) s += 3;
-        if (d4 == 3) s += 3;
-        if (d5 == 3) s += 3;
-        return s;
+        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(3) * 3;
     }
 
-    protected int[] dice;
-    public Yatzy(int d1, int d2, int d3, int d4, int _5)
+    public Yatzy(){}
+
+    public int fours(int d1, int d2, int d3, int d4, int d5)
     {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = _5;
+        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(4) * 4;
     }
 
-    public int fours()
+    public int fives(int d1, int d2, int d3, int d4, int d5)
     {
-        int sum;    
-        sum = 0;
-        for (int at = 0; at != 5; at++) {
-            if (dice[at] == 4) {
-                sum += 4;
-            }
-        }
-        return sum;
+        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(5) * 5;
     }
 
-    public int fives()
+    public int sixes(int d1, int d2, int d3, int d4, int d5)
     {
-        int s = 0;
-        int i;
-        for (i = 0; i < dice.length; i++) 
-            if (dice[i] == 5)
-                s = s + 5;
-        return s;
-    }
-
-    public int sixes()
-    {
-        int sum = 0;
-        for (int at = 0; at < dice.length; at++) 
-            if (dice[at] == 6)
-                sum = sum + 6;
-        return sum;
+        return new DiceRoll(d1, d2, d3, d4, d5).getOccurrenceOf(6) * 6;
     }
 
     public static int score_pair(int d1, int d2, int d3, int d4, int d5)
