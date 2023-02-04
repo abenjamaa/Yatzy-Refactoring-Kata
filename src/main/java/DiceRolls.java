@@ -39,8 +39,38 @@ public class DiceRolls {
         return getCountOf(diceFaceValue) * diceFaceValue;
     }
 
-    public List<Integer> getDiceValuesWithCountEqualTo(int count) {
-       return groupRollsByRollResults()
+    public int isYatzy() {
+        return isSameDiceRollFiveTimes() ? 50 : 0;
+    }
+
+    public int sumOfDiceValuesWithCountEqualTo(int count){
+        return getDiceValuesWithCountEqualTo(count)
+            .stream()
+            .reduce(0, Integer::sum);
+    }
+
+    /**
+     *
+     * @return is fullHouse
+     */
+    public boolean fullHouse(){
+        List<Integer> pair = getDiceValuesWithCountEqualTo(2);
+        List<Integer> threeKind = getDiceValuesWithCountEqualTo(3);
+        return pair.size() > 1 && threeKind.size() > 0 && pair.contains(threeKind.stream().findFirst().orElse(0));
+    }
+
+    public TreeSet<Integer> getStraight(){
+        return new TreeSet<>(dice);
+    }
+
+
+    private Map<Integer, Long> groupRollsByRollResults() {
+        return dice.stream()
+            .collect(Collectors.groupingBy(d -> d, Collectors.counting()));
+    }
+
+    private List<Integer> getDiceValuesWithCountEqualTo(int count) {
+        return groupRollsByRollResults()
             .entrySet()
             .stream()
             .filter(Objects::nonNull)
@@ -49,14 +79,7 @@ public class DiceRolls {
             .collect(Collectors.toList());
     }
 
-    public int isYatzy() {
-        return isSameDiceRollFiveTimes() ? 50 : 0;
-    }
 
-    private Map<Integer, Long> groupRollsByRollResults() {
-        return dice.stream()
-            .collect(Collectors.groupingBy(d -> d, Collectors.counting()));
-    }
 
 
 }
