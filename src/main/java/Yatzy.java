@@ -1,109 +1,64 @@
+import java.util.Objects;
+
 public class Yatzy {
+    private Yatzy(){}
 
-    public static int chance(int d1, int d2, int d3, int d4, int d5)
+    public static int chance(DiceRolls diceRolls)
     {
-        return new DiceFaces(d1, d2, d3, d4, d5).sum();
+        return Objects.requireNonNullElse(diceRolls, new DiceRolls()).sum();
     }
 
-    public static int yatzy(int... dice)
+    public static int yatzy(DiceRolls diceRolls)
     {
-        return new DiceFaces(dice).isYatzy() ? 50 : 0;
+        return Objects.requireNonNullElse(diceRolls, new DiceRolls()).isYatzy();
     }
 
 
-    public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(1);
+    public static int ones(DiceRolls diceRolls) {
+        return Objects.requireNonNullElse(diceRolls, new DiceRolls()).computeDiceFaceValueMultipliedByDiceFaceValueCount(DiceFace.ONE.getValue());
     }
 
-    public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(2) * 2;
+    public static int twos(DiceRolls diceRolls) {
+        return Objects.requireNonNullElse(diceRolls, new DiceRolls()).computeDiceFaceValueMultipliedByDiceFaceValueCount(DiceFace.TWO.getValue());
     }
 
-    public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(3) * 3;
+    public static int threes(DiceRolls diceRolls) {
+        return  Objects.requireNonNullElse(diceRolls, new DiceRolls()).computeDiceFaceValueMultipliedByDiceFaceValueCount(DiceFace.THREE.getValue());
     }
 
-    public Yatzy(){}
-
-    public int fours(int d1, int d2, int d3, int d4, int d5)
+    public static int fours(DiceRolls diceRolls)
     {
-        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(4) * 4;
+        return Objects.requireNonNullElse(diceRolls, new DiceRolls()).computeDiceFaceValueMultipliedByDiceFaceValueCount(DiceFace.FOUR.getValue());
     }
 
-    public int fives(int d1, int d2, int d3, int d4, int d5)
+    public static int fives(DiceRolls diceRolls)
     {
-        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(5) * 5;
+        return Objects.requireNonNullElse(diceRolls, new DiceRolls()).computeDiceFaceValueMultipliedByDiceFaceValueCount( DiceFace.FIVE.getValue());
     }
 
-    public int sixes(int d1, int d2, int d3, int d4, int d5)
+    public static int sixes(DiceRolls diceRolls)
     {
-        return new DiceFaces(d1, d2, d3, d4, d5).getOccurrenceOf(6) * 6;
+        return Objects.requireNonNullElse(diceRolls, new DiceRolls()).computeDiceFaceValueMultipliedByDiceFaceValueCount(DiceFace.SIX.getValue());
     }
 
-    public static int sumMaxPair(int d1, int d2, int d3, int d4, int d5)
+    public static int sumMaxPair(DiceRolls diceRolls)
     {
-        int[] counts = new int[6];
-        counts[d1-1]++;
-        counts[d2-1]++;
-        counts[d3-1]++;
-        counts[d4-1]++;
-        counts[d5-1]++;
-        int at;
-        for (at = 0; at != 6; at++)
-            if (counts[6-at-1] >= 2)
-                return (6-at)*2;
-        return 0;
+        return diceRolls.maxPairValue() * 2;
     }
 
-    public static int two_pair(int d1, int d2, int d3, int d4, int d5)
+    public static int twoPair(DiceRolls diceRolls)
     {
-        int[] counts = new int[6];
-        counts[d1-1]++;
-        counts[d2-1]++;
-        counts[d3-1]++;
-        counts[d4-1]++;
-        counts[d5-1]++;
-        int n = 0;
-        int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (counts[6-i-1] >= 2) {
-                n++;
-                score += (6-i);
-            }        
-        if (n == 2)
-            return score * 2;
-        else
-            return 0;
+        return computeDiceValuesCountSumMultipliedByCount(diceRolls,2);
     }
 
-    public static int four_of_a_kind(int _1, int _2, int d3, int d4, int d5)
+    public static int fourOfAKind(DiceRolls diceRolls)
     {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[_1-1]++;
-        tallies[_2-1]++;
-        tallies[d3-1]++;
-        tallies[d4-1]++;
-        tallies[d5-1]++;
-        for (int i = 0; i < 6; i++)
-            if (tallies[i] >= 4)
-                return (i+1) * 4;
-        return 0;
+        return computeDiceValuesCountSumMultipliedByCount(diceRolls,4);
     }
 
-    public static int three_of_a_kind(int d1, int d2, int d3, int d4, int d5)
+    public static int threeOfAKind(DiceRolls diceRolls)
     {
-        int[] t;
-        t = new int[6];
-        t[d1-1]++;
-        t[d2-1]++;
-        t[d3-1]++;
-        t[d4-1]++;
-        t[d5-1]++;
-        for (int i = 0; i < 6; i++)
-            if (t[i] >= 3)
-                return (i+1) * 3;
-        return 0;
+        return computeDiceValuesCountSumMultipliedByCount(diceRolls,3);
     }
 
     public static int smallStraight(int d1, int d2, int d3, int d4, int d5)
@@ -178,6 +133,15 @@ public class Yatzy {
         else
             return 0;
     }
+
+    private static int computeDiceValuesCountSumMultipliedByCount(DiceRolls diceRolls, int count) {
+        return Objects.requireNonNullElse(diceRolls, new DiceRolls())
+            .getDiceValuesWithCountEqualTo(count)
+            .stream()
+            .reduce(0, Integer::sum) * count;
+    }
+
+
 }
 
 
