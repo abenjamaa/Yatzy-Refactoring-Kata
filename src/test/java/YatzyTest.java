@@ -218,6 +218,7 @@ public class YatzyTest {
         assertEquals(15, Yatzy.smallStraight(new DiceRolls(2,3,4,5,1)));
     }
 
+    @Test
     public void shouldRetrunZeorWhenNotSmallStraight() {
         assertEquals(0, Yatzy.smallStraight(new DiceRolls(1,2,2,4,5)));
         assertEquals(0, Yatzy.smallStraight(null));
