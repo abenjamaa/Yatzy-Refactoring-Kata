@@ -1,31 +1,64 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a Dice Rolls.
+ */
 public class DiceRolls {
 
-        private final List<Integer> dice;
+    private final List<Integer> dice;
+
+    /**
+     * Construct a DiceRolls with empty list
+     */
     public DiceRolls() {
         this.dice = List.of();
     }
-    public DiceRolls(int d1, int d2, int d3, int d4, int d5) {
-        this.dice = Arrays.asList(d1, d2, d3, d4, d5);
+
+    /**
+     * Construct a DiceRolls with values
+     * @param diceOne the value of dice one
+     * @param diceTwo the value of dice two
+     * @param diceThree the value of dice three
+     * @param diceFour the value of dice four
+     * @param dDiceFive the value of dice five
+     */
+    public DiceRolls(int diceOne, int diceTwo, int diceThree, int diceFour, int dDiceFive) {
+        this.dice = Arrays.asList(diceOne, diceTwo, diceThree, diceFour, dDiceFive);
     }
 
-    public int getCountOf(int diceFaceNumber){
+    /**
+     * Count the number of occurrences of a diceValue in a DiceRoll
+     * @param diceValue the dice number to check
+     */
+    public int getCountOf(int diceValue){
         return (int) dice.stream()
-            .filter(d -> d == diceFaceNumber)
+            .filter(d -> d == diceValue)
             .count();
     }
 
+
+    /**
+     * compute the sum of diceRolls
+     */
     public int sum(){
-        return dice.stream().reduce(0, Integer::sum);
+        return dice
+            .stream()
+            .reduce(0, Integer::sum);
     }
 
+    /**
+     * check if is the same dice roll five times
+     */
     public boolean isSameDiceRollFiveTimes() {
-        return groupRollsByRollResults().values().stream().anyMatch(d -> d == 5);
+        return diceValuesCount().values().stream().anyMatch(d -> d == 5);
     }
+
+    /**
+     * get the max pair value
+     */
     public int maxPairValue() {
-        return groupRollsByRollResults()
+        return diceValuesCount()
             .entrySet()
             .stream()
             .filter(Objects::nonNull)
@@ -35,42 +68,73 @@ public class DiceRolls {
             .orElse(0);
     }
 
-    public int computeDiceFaceValueMultipliedByDiceFaceValueCount(int diceFaceValue) {
-        return getCountOf(diceFaceValue) * diceFaceValue;
+    /**
+     * Compute dice face value multiplied by dice value count
+     * @param diceValue to compute
+     */
+    public int computeDiceValueMultipliedByOccurrenceCount(int diceValue) {
+        return getCountOf(diceValue) * diceValue;
     }
 
-    public int isYatzy() {
+
+    /**
+     * check if is Yatzy
+     */
+    public int yatzy() {
         return isSameDiceRollFiveTimes() ? 50 : 0;
     }
 
+    /**
+     * Compute the sum of dice values whose number of occurrences is equal to count
+     * @param count number of occurrences
+     */
     public int sumOfDiceValuesWithCountEqualTo(int count){
         return getDiceValuesWithCountEqualTo(count)
             .stream()
             .reduce(0, Integer::sum);
     }
-
     /**
-     *
-     * @return is fullHouse
+     * Compute the sum of dice values of two pairs if exists
+     * @param count number of occurrences
      */
-    public boolean fullHouse(){
+    public int getSumOfTwoPairs(int count){
+        List<Integer> diceValues = getDiceValuesWithCountEqualTo(count);
+        return diceValues.size() > 1 ?
+            diceValues.stream()
+            .reduce(0, Integer::sum) : 0;
+    }
+    /**
+     * Check if Dice rolls is fullhouse
+     */
+    public boolean isFullHouse(){
         List<Integer> pair = getDiceValuesWithCountEqualTo(2);
         List<Integer> threeKind = getDiceValuesWithCountEqualTo(3);
         return pair.size() > 1 && threeKind.size() > 0 && pair.contains(threeKind.stream().findFirst().orElse(0));
     }
 
-    public TreeSet<Integer> getStraight(){
+
+    /**
+     * transform to TreeSet of Integer
+     */
+    public TreeSet<Integer> toTreeSet(){
         return new TreeSet<>(dice);
     }
 
 
-    private Map<Integer, Long> groupRollsByRollResults() {
+    /**
+     * Grouping diceRolls in a map  <Key>dice value</Key> and <value>count</value>
+     */
+    private Map<Integer, Long> diceValuesCount() {
         return dice.stream()
             .collect(Collectors.groupingBy(d -> d, Collectors.counting()));
     }
 
+    /**
+     * get a list of dice values whose occurrences is equal to count
+     * @param count number of occurrences
+     */
     private List<Integer> getDiceValuesWithCountEqualTo(int count) {
-        return groupRollsByRollResults()
+        return diceValuesCount()
             .entrySet()
             .stream()
             .filter(Objects::nonNull)
@@ -78,8 +142,4 @@ public class DiceRolls {
             .map(Map.Entry::getKey)
             .collect(Collectors.toList());
     }
-
-
-
-
 }

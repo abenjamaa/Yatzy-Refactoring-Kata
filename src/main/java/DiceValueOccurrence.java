@@ -1,4 +1,4 @@
-public enum DiceFace {
+public enum DiceValueOccurrence {
     ONE(1),
     TWO(2),
     THREE(3),
@@ -7,7 +7,7 @@ public enum DiceFace {
     SIX(6);
     private final int value;
 
-    DiceFace(int value) {
+    DiceValueOccurrence(int value) {
         this.value = value;
     }
 

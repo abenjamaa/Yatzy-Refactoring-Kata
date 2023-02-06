@@ -1,4 +1,4 @@
-public enum DiceFaceCount {
+public enum DiceValue {
     ONE(1),
     TWO(2),
     THREE(3),
@@ -7,7 +7,7 @@ public enum DiceFaceCount {
     SIX(6);
     private final int value;
 
-    DiceFaceCount(int value) {
+    DiceValue(int value) {
         this.value = value;
     }
 
