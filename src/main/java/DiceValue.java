@@ -7,10 +7,17 @@ public enum DiceValue {
     SIX(6);
     private final int value;
 
+    /**
+     * Constructor
+     * @param value value
+     */
     DiceValue(int value) {
         this.value = value;
     }
 
+    /**
+     * return value
+     */
     public int getValue(){
         return value;
     }

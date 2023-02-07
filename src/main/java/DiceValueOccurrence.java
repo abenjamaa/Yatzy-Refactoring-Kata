@@ -7,10 +7,17 @@ public enum DiceValueOccurrence {
     SIX(6);
     private final int value;
 
+    /**
+     * private contructor
+     */
     DiceValueOccurrence(int value) {
+
         this.value = value;
     }
 
+    /**
+     * return value
+     */
     public int getValue(){
         return value;
     }

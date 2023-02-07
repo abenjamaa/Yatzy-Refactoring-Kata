@@ -339,53 +339,145 @@ public class YatzyTest {
     @Test
     public void shouldReturnZeorWhenNotThreeOfAKind()
     {
-        assertEquals(0, Yatzy.threeOfAKind(new DiceRolls(3,3,2,4,5)));
-        assertEquals(0, Yatzy.threeOfAKind(null));
+        //GIVEN
+        DiceRolls diceRollsNull = null;
+        DiceRolls diceRolls = new DiceRolls(3, 3, 2, 4, 5);
+        int expected = 0;
+
+        //WHEN
+        int actual = Yatzy.threeOfAKind(diceRolls);
+        int actualForNull = Yatzy.threeOfAKind(diceRollsNull);
+
+        //THEN
+        assertEquals(expected, actual);
+        assertEquals(expected, actualForNull);
     }
 
     @Test
     public void shouldReturnSumOfDiceValuesWhenFourOfAKind() {
-        assertEquals(12, Yatzy.fourOfAKind(new DiceRolls(3,3,3,3,5)));
-        assertEquals(20, Yatzy.fourOfAKind(new DiceRolls(5,5,5,4,5)));
+
+        //GIVEN
+        DiceRolls fourKindOfThree = new DiceRolls(3, 3, 3, 3, 5);
+        DiceRolls fourKindOfFive = new DiceRolls(5, 5, 5, 4, 5);
+        int expectedForFourKindOfFive = 20;
+        int expectedForFourKindOfThree = 12;
+
+        //WHEN
+        int actualForFourKindOfFive = Yatzy.fourOfAKind(fourKindOfThree);
+        int actualForFourKindOfThree = Yatzy.fourOfAKind(fourKindOfFive);
+
+       //THEN
+        assertEquals(expectedForFourKindOfThree, actualForFourKindOfFive);
+        assertEquals(expectedForFourKindOfFive, actualForFourKindOfThree);
         assertEquals(9, Yatzy.threeOfAKind(new DiceRolls(3,3,3,3,3)));
     }
 
     @Test
     public void shouldReturnZeroWhenNotFourOfAKind() {
-        assertEquals(0, Yatzy.fourOfAKind(new DiceRolls(3,3,2,3,5)));
-        assertEquals(0, Yatzy.fourOfAKind(null));
+
+        //GIVEN
+        DiceRolls diceRollsNull = null;
+        DiceRolls diceRolls = new DiceRolls(3,3,2,3,5);
+        int expected = 0;
+
+        //WHEN
+        int actual = Yatzy.fourOfAKind(diceRolls);
+        int actualForNull = Yatzy.fourOfAKind(diceRollsNull);
+
+        //THEN
+        assertEquals(expected, actual);
+        assertEquals(expected, actualForNull);
     }
 
     @Test
     public void shouldRetrunFifteenWhenSmallStraight() {
-        assertEquals(15, Yatzy.smallStraight(new DiceRolls(1,2,3,4,5)));
-        assertEquals(15, Yatzy.smallStraight(new DiceRolls(2,3,4,5,1)));
+        //GIVE
+        DiceRolls orderedSmallStraight = new DiceRolls(1, 2, 3, 4, 5);
+        DiceRolls disorderedSmallStraight = new DiceRolls(2, 3, 4, 5, 1);
+        int expectedForOrderedSmallStraight = 15;
+        int expectedForDisorderedSmallStraight = 15;
+        //WHEN
+        int actualForOrderedSmallStraight = Yatzy.smallStraight(orderedSmallStraight);
+        int actualForDisorderedSmallStraight = Yatzy.smallStraight(disorderedSmallStraight);
+
+        //THEN
+        assertEquals(expectedForOrderedSmallStraight, actualForOrderedSmallStraight);
+        assertEquals(expectedForDisorderedSmallStraight, actualForDisorderedSmallStraight);
     }
 
     @Test
-    public void shouldRetrunZeorWhenNotSmallStraight() {
-        assertEquals(0, Yatzy.smallStraight(new DiceRolls(1,2,2,4,5)));
-        assertEquals(0, Yatzy.smallStraight(null));
+    public void shouldReturnZeroWhenNotSmallStraight() {
+        //GIVEN
+        DiceRolls diceRollsNull = null;
+        DiceRolls diceRolls = new DiceRolls(1,2,2,4,5);
+        int expected = 0;
+
+        //WHEN
+        int actual = Yatzy.smallStraight(diceRolls);
+        int actualForNull = Yatzy.smallStraight(diceRollsNull);
+
+        //THEN
+        assertEquals(expected, actual);
+        assertEquals(expected, actualForNull);
     }
 
     @Test
     public void shouldReturnTwentyWhenLargeStraight() {
-        assertEquals(20, Yatzy.largeStraight(new DiceRolls(6,2,3,4,5)));
-        assertEquals(20, Yatzy.largeStraight(new DiceRolls(2,3,4,5,6)));
+        //GIVEN
+        DiceRolls disorderedLargeStraight = new DiceRolls(6,2,3,4,5);
+        DiceRolls  orderedLargeStraight = new DiceRolls(2,3,4,5,6);
+        int expectedForOrderedLargeStraight = 20;
+        int expectedForDisorderedLargeStraight = 20;
+        //WHEN
+        int actualForOrderedSmallStraight = Yatzy.largeStraight(orderedLargeStraight);
+        int actualForDisorderedSmallStraight = Yatzy.largeStraight(disorderedLargeStraight);
+
+        //THEN
+        assertEquals(expectedForOrderedLargeStraight, actualForOrderedSmallStraight);
+        assertEquals(expectedForDisorderedLargeStraight, actualForDisorderedSmallStraight);
     }
     @Test
     public void shouldReturnZeroWhenNotLargeStraight() {
-        assertEquals(0, Yatzy.largeStraight(new DiceRolls(1,2,2,4,5)));
-        assertEquals(0, Yatzy.largeStraight(null));
+        //GIVEN
+        DiceRolls diceRollsNull = null;
+        DiceRolls diceRolls = new DiceRolls(1,2,2,4,5);
+        int expected = 0;
+
+        //WHEN
+        int actual = Yatzy.largeStraight(diceRolls);
+        int actualForNull = Yatzy.largeStraight(diceRollsNull);
+
+        //THEN
+        assertEquals(expected, actual);
+        assertEquals(expected, actualForNull);
     }
 
     @Test
     public void shouldReturnTheSumOfDiceRollsWhenFullHouse() {
-        assertEquals(18, Yatzy.fullHouse(new DiceRolls(6,2,2,2,6)));
+
+       //THEN
+        DiceRolls fullHouse = new DiceRolls(6, 2, 2, 2, 6);
+        int expected = 18;
+
+        //WHEN
+        int actual = Yatzy.fullHouse(fullHouse);
+
+        //THEN
+        assertEquals(expected, actual);
     }
     @Test
     public void shouldReturnZerorWhenNotFullHouse() {
-        assertEquals(0, Yatzy.fullHouse(new DiceRolls(2,3,4,5,6)));
-        assertEquals(0, Yatzy.fullHouse(null));
+        //GIVEN
+        DiceRolls diceRollsNull = null;
+        DiceRolls diceRolls = new DiceRolls(2,3,4,5,6);
+        int expected = 0;
+
+        //WHEN
+        int actual = Yatzy.fullHouse(diceRolls);
+        int actualForNull = Yatzy.fullHouse(diceRollsNull);
+
+        //THEN
+        assertEquals(expected, actual);
+        assertEquals(expected, actualForNull);
     }
 }

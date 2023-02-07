@@ -13,8 +13,7 @@ public class Yatzy {
      * Get chance result
      * @param diceRolls the dice Rolls
      */
-    public static int chance(DiceRolls diceRolls)
-    {
+    public static int chance(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls()).sum();
     }
 
@@ -22,8 +21,7 @@ public class Yatzy {
      * Get yatzy result
      * @param diceRolls the dice rolls
      */
-    public static int yatzy(DiceRolls diceRolls)
-    {
+    public static int yatzy(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls()).yatzy();
     }
 
@@ -58,8 +56,7 @@ public class Yatzy {
      * Get the fives result
      * @param diceRolls the dice rolls
      */
-    public static int fours(DiceRolls diceRolls)
-    {
+    public static int fours(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls())
             .computeDiceValueMultipliedByOccurrenceCount(DiceValue.FOUR.getValue());
     }
@@ -68,8 +65,7 @@ public class Yatzy {
      * Get the fives result
      * @param diceRolls the dice rolls
      */
-    public static int fives(DiceRolls diceRolls)
-    {
+    public static int fives(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls())
             .computeDiceValueMultipliedByOccurrenceCount( DiceValue.FIVE.getValue());
     }
@@ -78,8 +74,7 @@ public class Yatzy {
      * Get the sixes result
      * @param diceRolls the dice rolls
      */
-    public static int sixes(DiceRolls diceRolls)
-    {
+    public static int sixes(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls())
             .computeDiceValueMultipliedByOccurrenceCount(DiceValue.SIX.getValue());
     }
@@ -88,8 +83,7 @@ public class Yatzy {
      * compute the sum of max pair
      * @param diceRolls the dice Rolls
      */
-    public static int sumMaxPair(DiceRolls diceRolls)
-    {
+    public static int sumMaxPair(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls()).maxPairValue() * 2;
     }
 
@@ -97,8 +91,7 @@ public class Yatzy {
      * Get sum of two pairs values
      * @param diceRolls the dice Rolls
      */
-    public static int twoPairs(DiceRolls diceRolls)
-    {
+    public static int twoPairs(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls())
             .getSumOfTwoPairs(DiceValueOccurrence.TWO.getValue()) * DiceValueOccurrence.TWO.getValue();
     }
@@ -107,8 +100,7 @@ public class Yatzy {
      * Get sum of four of a kind values
      * @param diceRolls the dice Rolls
      */
-    public static int fourOfAKind(DiceRolls diceRolls)
-    {
+    public static int fourOfAKind(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls())
             .sumOfDiceValuesWithCountEqualTo(DiceValueOccurrence.FOUR.getValue()) * DiceValueOccurrence.FOUR.getValue();
     }
@@ -117,8 +109,7 @@ public class Yatzy {
      * Get sum of three of a kind values
      * @param diceRolls the dice Rolls
      */
-    public static int threeOfAKind(DiceRolls diceRolls)
-    {
+    public static int threeOfAKind(DiceRolls diceRolls) {
         return Objects.requireNonNullElse(diceRolls, new DiceRolls())
             .sumOfDiceValuesWithCountEqualTo(DiceValueOccurrence.THREE.getValue()) * DiceValueOccurrence.THREE.getValue();
     }
@@ -127,8 +118,7 @@ public class Yatzy {
      * Get small straight result
      * @param diceRolls the dice rolls
      */
-    public static int smallStraight(DiceRolls diceRolls)
-    {
+    public static int smallStraight(DiceRolls diceRolls) {
         DiceRolls diceRolls1 = Objects.requireNonNullElse(diceRolls, new DiceRolls());
         return diceRolls1.toTreeSet().size() == 5 && diceRolls1.toTreeSet().last() == 5 ? 15 : 0;
     }
@@ -137,8 +127,7 @@ public class Yatzy {
      * Get large straight result
       * @param diceRolls the dice rolls
      */
-    public static int largeStraight(DiceRolls diceRolls)
-    {
+    public static int largeStraight(DiceRolls diceRolls) {
         DiceRolls diceRollsNonNull = Objects.requireNonNullElse(diceRolls, new DiceRolls());
         return diceRollsNonNull.toTreeSet().size() == 5 && diceRollsNonNull.toTreeSet().last() == 6 ? 20 : 0;
     }
@@ -147,14 +136,10 @@ public class Yatzy {
      * Get full house result
      * @param diceRolls the dice rolls
      */
-    public static int fullHouse(DiceRolls diceRolls)
-    {
+    public static int fullHouse(DiceRolls diceRolls) {
         DiceRolls diceRollsNonNull = Objects.requireNonNullElse(diceRolls, new DiceRolls());
         return diceRollsNonNull.isFullHouse() ? diceRollsNonNull.sum() : 0;
     }
-
-
-
 }
 
 
