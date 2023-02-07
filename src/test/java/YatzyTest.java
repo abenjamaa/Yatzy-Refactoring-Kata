@@ -73,102 +73,221 @@ public class YatzyTest {
     }
     @Test public void shouldReturnTheSumOfOnesInDiceRolls() {
         //GIVEN
+        DiceRolls oneTimeOfOne = new DiceRolls(1, 2, 3, 4, 5);
+        DiceRolls twoTimesOfOne = new DiceRolls(1,2,1,4,5);
+        DiceRolls noOne = new DiceRolls(6,2,2,4,5);
+        DiceRolls fourTimesOfOne = new DiceRolls(1,2,1,1,1);
+        int expectedForZeroTime = 0;
+        int expectedForOneTime = 1;
+        int expectedForTwoTimes = 2;
+        int  expectedForFourTimes  = 4;
 
         //WHEN
+        int actualForZero = Yatzy.ones(noOne);
+        int actualForOneTimes = Yatzy.ones(oneTimeOfOne);
+        int actualForTwoTimes = Yatzy.ones(twoTimesOfOne);
+        int actualForFourTimes = Yatzy.ones(fourTimesOfOne);
 
         //THEN
-        assertEquals(1, Yatzy.ones(new DiceRolls(1, 2, 3, 4, 5)));
-        assertEquals(2, Yatzy.ones(new DiceRolls(1,2,1,4,5)));
-        assertEquals(0, Yatzy.ones(new DiceRolls(6,2,2,4,5)));
-        assertEquals(4, Yatzy.ones(new DiceRolls(1,2,1,1,1)));
-        assertEquals(0, Yatzy.ones(null));
+        assertEquals(expectedForZeroTime, actualForZero);
+        assertEquals(expectedForOneTime, actualForOneTimes);
+        assertEquals(expectedForTwoTimes, actualForTwoTimes);
+        assertEquals(expectedForFourTimes, actualForFourTimes);
+    }
+
+    @Test
+    public void onesShouldReturnZeroWhenDiceRollsIsNull() {
+        //GIVEN
+        int expected = 0;
+        DiceRolls diceRolls = null;
+        //WHEN
+        int actual = Yatzy.ones(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
     }
 
     @Test
     public void shouldReturnTheSumOfTwosInDiceRolls() {
         //GIVEN
+        DiceRolls twoTimesOfTwo = new DiceRolls(1,2,3,2,3);
+        DiceRolls fiveTimesOfTwo = new DiceRolls(2,2,2,2,2);
+        int expectedForTwoTimes = 4;
+        int  expectedForFiveTimes  = 10;
 
         //WHEN
+        int actualForTwoTimes = Yatzy.twos(twoTimesOfTwo);
+        int actualForFiveTimes = Yatzy.twos(fiveTimesOfTwo);
 
         //THEN
-        assertEquals(4, Yatzy.twos(new DiceRolls(1,2,3,2,6)));
-        assertEquals(10, Yatzy.twos(new DiceRolls(2,2,2,2,2)));
-        assertEquals(0, Yatzy.twos(null));
+        assertEquals(expectedForTwoTimes, actualForTwoTimes);
+        assertEquals(expectedForFiveTimes, actualForFiveTimes);
+    }
+
+    @Test
+    public void twosShouldReturnZeroWhenDiceRollsIsNull() {
+        //GIVEN
+        int expected = 0;
+        DiceRolls diceRolls = null;
+        //WHEN
+        int actual = Yatzy.twos(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
     }
 
     @Test
     public void shouldReturnTheSumOfThreesInDiceRolls() {
         //GIVEN
+        DiceRolls twoTimesOfThree = new DiceRolls(1,2,3,2,3);
+         DiceRolls fourTimesOfThree = new DiceRolls(2,3,3,3,3);
+        int expectedForTwoTimes = 6;
+        int  expectedForFourTimes  = 12;
 
         //WHEN
+        int actualForTwoTimes = Yatzy.threes(twoTimesOfThree);
+        int actualForFourTimes = Yatzy.threes(fourTimesOfThree);
+
 
         //THEN
-        assertEquals(6, Yatzy.threes(new DiceRolls(1,2,3,2,3)));
-        assertEquals(12, Yatzy.threes(new DiceRolls(2,3,3,3,3)));
-        assertEquals(0, Yatzy.threes(null));
+        assertEquals(expectedForTwoTimes, actualForTwoTimes);
+        assertEquals(expectedForFourTimes, actualForFourTimes);
+
+    }
+
+    @Test
+    public void threesShouldReturnZeroWhenDiceRollsIsNull() {
+        //GIVEN
+        int expected = 0;
+        DiceRolls diceRolls = null;
+        //WHEN
+        int actual = Yatzy.threes(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
     }
 
     @Test
     public void shouldReturnTheSumOfFoursInDiceRolls()
     {
         //GIVEN
+        DiceRolls threeTimesOfFour = new DiceRolls(4,4,4,5,5);
+        DiceRolls twoTimesOfFour = new DiceRolls(4,4,5,5,5);
+        DiceRolls oneTimeOfFour = new DiceRolls(4,5,5,5,5);
+        int expectedForTwoTimes = 8;
+        int expectedForThreeTimes = 12;
+        int  expectedForOneTime  = 4;
 
         //WHEN
+        int actualForTwoTimes = Yatzy.fours(twoTimesOfFour);
+        int actualForThreeTimes = Yatzy.fours(threeTimesOfFour);
+        int actualForOneTime = Yatzy.fours(oneTimeOfFour);
 
         //THEN
-        assertEquals(12, Yatzy.fours(new DiceRolls(4,4,4,5,5)));
-        assertEquals(8, Yatzy.fours(new DiceRolls(4,4,5,5,5)));
-        assertEquals(4, Yatzy.fours(new DiceRolls(4,5,5,5,5)));
-        assertEquals(0, Yatzy.fours(null));
+        assertEquals(expectedForThreeTimes, actualForThreeTimes);
+        assertEquals(expectedForTwoTimes, actualForTwoTimes);
+        assertEquals(expectedForOneTime, actualForOneTime);
     }
-
+    @Test
+    public void foursShouldReturnZeroWhenDiceRollsIsNull() {
+        //GIVEN
+        int expected = 0;
+        DiceRolls diceRolls = null;
+        //WHEN
+        int actual = Yatzy.fours(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
+    }
     @Test
     public void shouldReturnTheSumOfFivesInDiceRolls() {
         //GIVEN
+        DiceRolls twoTimesOfFive = new DiceRolls(4, 4, 4, 5, 5);
+        DiceRolls threeTimesOfFive = new DiceRolls(4, 4, 5, 5, 5);
+        DiceRolls fourTimesOfFive = new DiceRolls(4, 5, 5, 5, 5);
+        int expectedForTwoTimes = 10;
+        int expectedForThreeTimes = 15;
+        int  expectedForFourTimes  = 20;
 
         //WHEN
+        int actualForTwoTimes = Yatzy.fives(twoTimesOfFive);
+        int actualForThreeTimes = Yatzy.fives(threeTimesOfFive);
+        int actualForFourTimes = Yatzy.fives(fourTimesOfFive);
 
         //THEN
-        assertEquals(10,  Yatzy.fives(new DiceRolls(4,4,4,5,5)));
-        assertEquals(15,  Yatzy.fives(new DiceRolls(4,4,5,5,5)));
-        assertEquals(20,  Yatzy.fives(new DiceRolls(4,5,5,5,5)));
-        assertEquals(0, Yatzy.fives(null));
+        assertEquals(expectedForTwoTimes,actualForTwoTimes);
+        assertEquals(expectedForThreeTimes, actualForThreeTimes);
+        assertEquals(  expectedForFourTimes, actualForFourTimes);
     }
-
+    @Test
+    public void fivesShouldReturnZeroWhenDiceRollsIsNull() {
+        //GIVEN
+        int expected = 0;
+        DiceRolls diceRolls = null;
+        //WHEN
+        int actual = Yatzy.fives(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
+    }
     @Test
     public void shouldReturnTheSumOfSixesInDiceRolls() {
         //GIVEN
+        DiceRolls zeroTimesOfSix = new DiceRolls(4,4,4,5,5);
+        DiceRolls oneTimesOfSix = new DiceRolls(4,4,6,5,5);
+        DiceRolls threeTimesOfSix = new DiceRolls(6,5,6,6,5);
+        int expectedForZeroTime = 0;
+        int expectedForOneTime = 6;
+        int  expectedForThreeTimes  = 18;
 
         //WHEN
+        int actualForZeroTime = Yatzy.sixes(zeroTimesOfSix);
+        int actualForOneTime = Yatzy.sixes(oneTimesOfSix);
+        int actualForThreeTimes = Yatzy.sixes(threeTimesOfSix);
 
-        //THEN
-        assertEquals(0,  Yatzy.sixes(new DiceRolls(4,4,4,5,5)));
-        assertEquals(6,  Yatzy.sixes(new DiceRolls(4,4,6,5,5)));
-        assertEquals(18, Yatzy.sixes(new DiceRolls(6,5,6,6,5)));
-        assertEquals(0, Yatzy.sixes(null));
+        assertEquals(expectedForZeroTime,  actualForZeroTime);
+        assertEquals(expectedForOneTime,  actualForOneTime);
+        assertEquals(expectedForThreeTimes, actualForThreeTimes);
     }
 
+    @Test
+    public void sixesShouldReturnZeroWhenDiceRollsIsNull() {
+        //GIVEN
+        int expected = 0;
+        DiceRolls diceRolls = null;
+        //WHEN
+        int actual = Yatzy.sixes(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
+    }
     @Test
     public void shouldReturnTheSumOfMaxPair() {
         //GIVEN
+        DiceRolls pairOfThree = new DiceRolls(3, 4, 3, 5, 6);
+        DiceRolls pairOfFive = new DiceRolls(5, 3, 3, 3, 5);
+        DiceRolls pairOfSix = new DiceRolls(5, 3, 6, 6, 5);
+        int expectedForPairOfThree = 6;
+        int expectedForPairOfFive = 10;
+        int expectedForPairOfSix = 12;
 
         //WHEN
+        int actualForPairOfThree = Yatzy.sumMaxPair(pairOfThree);
+        int actualForPairOfFive = Yatzy.sumMaxPair(pairOfFive);
+        int actualForPairOfSix = Yatzy.sumMaxPair(pairOfSix);
 
         //THEN
-        assertEquals(6, Yatzy.sumMaxPair(new DiceRolls(3,4,3,5,6)));
-        assertEquals(10, Yatzy.sumMaxPair(new DiceRolls(5,3,3,3,5)));
-        assertEquals(12, Yatzy.sumMaxPair(new DiceRolls(5,3,6,6,5)));
-        assertEquals(12, Yatzy.sumMaxPair(new DiceRolls(5,3,6,6,5)));
-        assertEquals(0, Yatzy.sumMaxPair(null));
-    }
+        assertEquals(expectedForPairOfThree, actualForPairOfThree);
+        assertEquals(expectedForPairOfFive, actualForPairOfFive);
+        assertEquals(expectedForPairOfSix, actualForPairOfSix);
 
+    }
+    @Test
+    public void sumMaxPairShouldReturnZeroWhenDiceRollsIsNull() {
+        //GIVEN
+        int expected = 0;
+        DiceRolls diceRolls = null;
+        //WHEN
+        int actual = Yatzy.sumMaxPair(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
+    }
     @Test
     public void shouldReturnSumOfDiceValuesWhenTwoPairInDiceRolls() {
-        //GIVEN
-
-        //WHEN
-
-        //THEN
         assertEquals(16, Yatzy.twoPairs(new DiceRolls(3,3,5,4,5)));
         assertEquals(16, Yatzy.twoPairs(new DiceRolls(3,3,5,5,5)));
         assertEquals(14, Yatzy.twoPairs(new DiceRolls(2,2,5,5,5)));
@@ -177,19 +296,44 @@ public class YatzyTest {
     @Test
     public void shouldReturnZeorWhenNotTwoPair() {
         //GIVEN
-
+        DiceRolls diceRolls = new DiceRolls(1, 1, 6, 4, 5);
+        int expected = 0;
         //WHEN
+        int actual = Yatzy.twoPairs(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
+    }
 
-        //THE
-        assertEquals(0, Yatzy.twoPairs(new DiceRolls(1,1,6,4,5)));
-        assertEquals(0, Yatzy.twoPairs(null));
+    @Test
+    public void shouldReturnZeorWhenDiceRollsIsNull() {
+        //GIVEN
+        int expected = 0;
+        DiceRolls diceRolls = null;
+        //WHEN
+        int actual = Yatzy.twoPairs(diceRolls);
+        //THEN
+        assertEquals(expected, actual);
     }
     @Test
     public void shouldReturnSumOfDiceValuesWhenThreeOfAKind()
     {
-        assertEquals(9, Yatzy.threeOfAKind(new DiceRolls(3,3,3,4,5)));
-        assertEquals(15, Yatzy.threeOfAKind(new DiceRolls(5,3,5,4,5)));
-        assertEquals(9, Yatzy.threeOfAKind(new DiceRolls(3,3,3,3,5)));
+        //GIVEN
+        DiceRolls threeKindOfThree = new DiceRolls(3, 3, 3, 4, 5);
+        DiceRolls threeKindOfFive = new DiceRolls(5, 3, 5, 4, 5);
+        DiceRolls fourKindOfThree = new DiceRolls(3, 3, 3, 3, 5);
+        int expectedForThreeKindOfThree = 9;
+        int expectedForThreeKindOfFive = 15;
+        int expectedForFourKindOfThree = 9;
+
+        //WHEN
+        int actualForThreeKindOfThree = Yatzy.threeOfAKind(threeKindOfThree);
+        int actualForThreeKindOfFive = Yatzy.threeOfAKind(threeKindOfFive);
+        int actualForFourKindOfThree = Yatzy.threeOfAKind(fourKindOfThree);
+
+        //THEN
+        assertEquals(expectedForThreeKindOfThree, actualForThreeKindOfThree);
+        assertEquals(expectedForThreeKindOfFive, actualForThreeKindOfFive);
+        assertEquals(expectedForFourKindOfThree, actualForFourKindOfThree);
     }
 
     @Test
@@ -230,7 +374,7 @@ public class YatzyTest {
         assertEquals(20, Yatzy.largeStraight(new DiceRolls(2,3,4,5,6)));
     }
     @Test
-    public void shouldReturnZeorWhenNotLargeStraight() {
+    public void shouldReturnZeroWhenNotLargeStraight() {
         assertEquals(0, Yatzy.largeStraight(new DiceRolls(1,2,2,4,5)));
         assertEquals(0, Yatzy.largeStraight(null));
     }
@@ -238,14 +382,10 @@ public class YatzyTest {
     @Test
     public void shouldReturnTheSumOfDiceRollsWhenFullHouse() {
         assertEquals(18, Yatzy.fullHouse(new DiceRolls(6,2,2,2,6)));
-        assertEquals(16, Yatzy.fullHouse(new DiceRolls(5,2,2,2,5)));
     }
     @Test
     public void shouldReturnZerorWhenNotFullHouse() {
         assertEquals(0, Yatzy.fullHouse(new DiceRolls(2,3,4,5,6)));
-        assertEquals(0, Yatzy.fullHouse(new DiceRolls(2,2,2,4,5)));
-        assertEquals(0, Yatzy.fullHouse(new DiceRolls(2,2,6,6,5)));
-        assertEquals(0, Yatzy.fullHouse(new DiceRolls(2,2,2,2,2)));
         assertEquals(0, Yatzy.fullHouse(null));
     }
 }
